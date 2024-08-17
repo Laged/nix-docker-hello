@@ -1,9 +1,11 @@
 [workspace]
-members = ["my-crate", "my-other-crate"]
+members = ["crates/*"]
+resolver = "2"
+
 [workspace.package]
-version = "0.1.0"
+version = "0.0.0"
 edition = "2021"
-authors = ["Some Author <someone@example.com>", "Another Author <someone.else@example.com>"]
-license = "MIT"
-repository = "https://github.com/yusdacra/nix-cargo-integration/tree/master/examples/simple-workspace"
-homepage = "https://github.com/yusdacra/nix-cargo-integration/tree/master/examples/simple-workspace"
+
+[workspace.dependencies]
+names = { version = "0.14.0", default-features = false }
+

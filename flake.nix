@@ -4,15 +4,20 @@
   inputs.nci.inputs.nixpkgs.follows = "nixpkgs";
   inputs.parts.url = "github:hercules-ci/flake-parts";
   inputs.parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+  inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+  inputs.flake-root.url = "github:srid/flake-root";
 
   outputs = inputs @ {
     parts,
-    nci,
     ...
   }:
     parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
-      imports = [nci.flakeModule];
+      imports = [
+        inputs.nci.flakeModule
+        inputs.treefmt-nix.flakeModule
+        inputs.flake-root.flakeModule
+      ];
       perSystem = {
         config,
         pkgs,
@@ -23,8 +28,7 @@
         outputs = config.nci.outputs;
       in {
         # declare projects
-        # TODO: change this to your workspace's path
-        nci.projects."my-project" = {
+        nci.projects."crates" = {
           path = ./.;
           # export all crates (packages and devshell) in flake outputs
           # alternatively you can access the outputs and export them yourself
@@ -32,10 +36,10 @@
         };
         # configure crates
         nci.crates = {
-          "my-crate" = {
+          "greeter" = {
             # look at documentation for more options
           };
-          "my-other-crate" = {
+          "namegen" = {
             drvConfig = {
               mkDerivation.buildInputs = [pkgs.hello];
             };
@@ -43,9 +47,14 @@
           };
         };
         # export the project devshell as the default devshell
-        devShells.default = outputs."my-project".devShell;
+        devShells.default = outputs."crates".devShell;
         # export the release package of the crate as default package
-        packages.default = outputs."my-crate".packages.release;
+        packages.default = outputs."greeter".packages.release;
+        # lint
+        treefmt.config = {
+          inherit (config.flake-root) projectRootFile;
+          package = pkgs.treefmt;
+        };
       };
     };
 }

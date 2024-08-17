@@ -1,0 +1,7 @@
+[package]
+name = "namegen"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+names = { workspace = true }
