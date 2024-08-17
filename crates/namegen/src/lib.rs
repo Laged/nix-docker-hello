@@ -1,5 +1,5 @@
-use std::fmt;
 use names::Generator;
+use std::fmt;
 
 pub struct Name(String);
 impl fmt::Display for Name {
@@ -11,7 +11,7 @@ impl fmt::Display for Name {
 pub fn generate() -> Name {
     let mut generator = Generator::default();
     let random = generator.next().unwrap();
-    return Name(random)
+    return Name(random);
 }
 
 #[cfg(test)]
@@ -22,6 +22,9 @@ mod tests {
     fn it_works() {
         let result = generate();
         let hyphen_count = result.0.matches('-').count();
-        assert_eq!(hyphen_count, 1, "Generated name does not contain exactly one hyphen");
+        assert_eq!(
+            hyphen_count, 1,
+            "Generated name does not contain exactly one hyphen"
+        );
     }
 }

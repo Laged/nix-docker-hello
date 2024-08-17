@@ -17,14 +17,14 @@ mod tests {
     #[test]
     fn test_greet_random_format() {
         let greeting = greet_random();
-        
+
         // Check if the greeting starts with "Hello, " and ends with "!"
         assert!(greeting.starts_with("Hello, "));
         assert!(greeting.ends_with("!"));
-        
+
         // Extract the name part
-        let name_part = &greeting[7..greeting.len()-1]; // Slice out "Hello, " and "!"
-        
+        let name_part = &greeting[7..greeting.len() - 1]; // Slice out "Hello, " and "!"
+
         // Check if the name part contains exactly one hyphen
         let parts: Vec<&str> = name_part.split('-').collect();
         assert_eq!(parts.len(), 2, "Name does not contain exactly one hyphen");
