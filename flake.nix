@@ -47,11 +47,25 @@
               };
               # look at documentation for more options
             };
+            "hello_server" = {
+              drvConfig = {
+                mkDerivation.buildInputs = [ pkgs.zeromq ];
+              };
+            };
+            "hello_client" = {
+              drvConfig = {
+                mkDerivation.buildInputs = [ pkgs.zeromq ];
+              };
+            };
           };
           # export the project devshell as the default devshell
           devShells.default = outputs."crates".devShell;
           # export the release package of the crate as default package
-          packages.default = outputs."greeter".packages.release;
+          packages = {
+            default = outputs."hello_server".packages.release;
+            client = outputs."hello_client".packages.release;
+            server = outputs."hello_server".packages.release;
+          };
           # lint
           treefmt.config = {
             inherit (config.flake-root) projectRootFile;

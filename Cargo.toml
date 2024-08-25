@@ -7,4 +7,6 @@ version = "0.0.0"
 edition = "2021"
 
 [workspace.dependencies]
+hello_config = { path = "crates/hello_config" }
 names = { version = "0.14.0", default-features = false }
+zmq = "0.10.0"

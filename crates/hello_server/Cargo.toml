@@ -1,0 +1,8 @@
+[package]
+name = "hello_server"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+hello_config = { workspace = true }
+zmq = { workspace = true }

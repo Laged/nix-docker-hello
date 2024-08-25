@@ -1,0 +1,8 @@
+[package]
+name = "hello_client"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+zmq = { workspace = true }
+hello_config = { path = "../hello_config" }
